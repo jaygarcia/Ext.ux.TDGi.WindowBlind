@@ -9,6 +9,8 @@
     Price        : free
     Version      : 1.0
     Date         : 06/08/2010
+    Known Issues :
+        - Need do allow for a 'width' configuration option.
 */
 Ext.ns('Ext.plugins.TDGi');
 
@@ -115,11 +117,11 @@ Ext.plugins.TDGi.WindowBlind = Ext.extend(Ext.Panel, {
     },
     onAfterParentRender : function(win) {
         this.prntTitleHeight = win.el.child('.x-window-tl').getHeight();
-
+        console.info('this.height =='  +this.height)
         Ext.apply(this, {
             renderTo : win.el,
             style    : 'z-index: 2;position:absolute;top: ' + ( this.prntTitleHeight -2 ) +'px; left: 10px;',
-            height   : win.body.getHeight() + (this.prntTitleHeight - this.offsetHeight)
+            height   : (this.height) ? this.height : this.autoCalcHeight()
         });
 
     },
@@ -139,8 +141,12 @@ Ext.plugins.TDGi.WindowBlind = Ext.extend(Ext.Panel, {
     },
     onParentResize : function(win, width, height) {
         var w = win.body.getWidth() - this.offsetWidth,
-           h  = win.body.getHeight() + (this.prntTitleHeight - this.offsetHeight);
+            h = (this.height) ? this.height : this.autoCalcHeight();
 
         this.setSize(w,h);
+    },
+    autoCalcHeight : function() {
+        return this.win.body.getHeight() + (this.prntTitleHeight - this.offsetHeight)
     }
 });
+Ext.preg('TDGi.WindowBlind',Ext.plugins.TDGi.WindowBlind);
