@@ -182,4 +182,4 @@ Ext.plugins.TDGi.WindowBlind = Ext.extend(Ext.Panel, {
     }
 });
 
-Ext.preg('Ext.plugins.TDGi.WindowBlind', 'Ext.plugins.TDGi.WindowBlind');
+Ext.preg('Ext.plugins.TDGi.WindowBlind', Ext.plugins.TDGi.WindowBlind);

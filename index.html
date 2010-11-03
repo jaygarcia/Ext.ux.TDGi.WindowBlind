@@ -2,74 +2,86 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <title>WindowBlind Basic Example</title>
+    <title>Window Drawer Basic Example</title>
 <link rel="stylesheet" type="text/css" href="/ext3/resources/css/ext-all.css" />
 <script type="text/javascript" src="/ext3/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="/ext3/ext-all.js"></script>
 
-<script type='text/javascript' src="plugins/TDGi.WindowBlind.js"></script>
-
+<script type='text/javascript' src="Ext.plugins.TDGi.WindowBlind.js"></script>
 <script type='text/javascript' src="example.js"></script>
-
-</head>
-<body>
-
 <pre>
 Class        : Ext.plugins.TDGi.WindowBlind
 Author       : Jay Garcia
 Site         : http://tdg-i.com
 Contact Info : jgarcia@tdg-i.com
 Purpose      : Window Blinds for Ext 3.x Ext.Window class, which emulates OS X behaviors
-Contributors : Mystix, http://extjs.com/forum/member.php?u=1459
 Warranty     : none
-License      : TBD,
 Price        : free
 Version      : 1.0
-Date         : 06/08/2010
+Date         : 11/03/2010
 Known Issues :
     - Need do allow for a 'width' configuration option.
-
 </pre>
-<b>Example:</b>
-<pre>
+    <b>Example:</b>
+    <pre>
 
 Ext.onReady(function(){
-    var blind = {
-        ptype       : 'TDGi.WindowBlind',
-        html        : 'Window blind plugin example',
-        buttonAlign : 'center',
-        height      : 200, // optional
-        buttons     : [
+    var blind = new Ext.plugins.TDGi.WindowBlind({
+        border : false,
+        items  : {
+            xtype       : 'form',
+            defaultType : 'textfield',
+            labelWidth  : 60,
+            defaults    : {
+                anchor : '100%'
+            },
+            items       : [
+                {
+                    fieldLabel : 'First Name'
+                },
+                {
+                    fieldLabel : 'Last  Name'
+                },
+                {
+                    fieldLabel : 'Phone'
+                },
+                {
+                    fieldLabel : 'Email'
+                }
+            ]
+        },
+        buttons : [
             {
-                text    : 'hide',
+                text    : 'OK',
                 handler : function() {
-                    //this translate to:
-                    //this->fbar->blind
                     this.ownerCt.ownerCt.hide();
                 }
             }
         ]
-    };
+    });
 
     new Ext.Window({
-        html    : 'test',
-        width   : 400,
-        height  : 300,
-        plugins : [blind],
-        buttons : [
+        height   : 200,
+        width    : 300,
+        closable : false,
+        title    : 'Window Blind test',
+        html     : 'This is a blind test',
+        plugins  : [
+            blind
+        ],
+        buttons  :  [
             {
-                text : 'Show Blind',
-                // This handler runs within the scope of the Ext.Button instance
-                handler : function() {
-                    //this translate to:
-                    //this->fbar->window
-                    this.ownerCt.ownerCt.blind.show();
+                text    : 'Show blind',
+                handler : function(btn) {
+                    btn.ownerCt.ownerCt.blind.show()
                 }
             }
         ]
     }).show();
 });
-</pre>
+    </pre>
 
+</head>
+<body>
 </body>
 </html>

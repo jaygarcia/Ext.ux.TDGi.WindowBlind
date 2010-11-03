@@ -2,7 +2,7 @@
     Author       : Jay Garcia
     Site         : http://tdg-i.com
     Contact Info : jgarcia@tdg-i.com
-    Purpose      : Window Drawers for Ext 2.x Ext.Window class, which emulates OS X behaviors
+    Purpose      : Window Blind for Ext 2.x Ext.Window class, which emulates OS X behaviors
     Warranty     : none
     Price        : free
     Version      : 1b1
@@ -11,44 +11,56 @@
 */
 
 Ext.onReady(function(){
-    var blind = {
-        ptype       : 'TDGi.WindowBlind',
-        html        : 'Window blind plugin example',
-        buttonAlign : 'center',
-//        height      : 150, // optional
-        buttons     : [
+    var blind = new Ext.plugins.TDGi.WindowBlind({
+        border : false,
+        items  : {
+            xtype       : 'form',
+            defaultType : 'textfield',
+            labelWidth  : 60,
+            defaults    : {
+                anchor : '100%'
+            },
+            items       : [
+                {
+                    fieldLabel : 'First Name'
+                },
+                {
+                    fieldLabel : 'Last  Name'
+                },
+                {
+                    fieldLabel : 'Phone'
+                },
+                {
+                    fieldLabel : 'Email'
+                }
+            ]
+        },
+        buttons : [
             {
-                text    : 'hide',
+                text    : 'OK',
                 handler : function() {
-                    //this translate to:
-                    //this->fbar->blind
                     this.ownerCt.ownerCt.hide();
                 }
             }
         ]
-    };
+    });
 
     new Ext.Window({
-        html    : 'test',
-        width   : 400,
-        height  : 300,
-        plugins : [blind],
-        buttons : [
+        height   : 200,
+        width    : 300,
+        closable : false,
+        title    : 'Window Blind test',
+        html     : 'This is a blind test',
+        plugins  : [
+            blind
+        ],
+        buttons  :  [
             {
-                text : 'Show Blind',
-                // This handler runs within the scope of the Ext.Button instance
-                handler : function() {
-
-                    //this translate to:
-                    //this->fbar->window.blind
-                    this.ownerCt.ownerCt.blind.show();
-
-                    //The blind plugin automatically sets itself as the window's "blind" property.
+                text    : 'Show blind',
+                handler : function(btn) {
+                    blind.show()
                 }
             }
         ]
     }).show();
-
-
-
 });
